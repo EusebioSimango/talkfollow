@@ -92,6 +92,26 @@ uv run talkfollow "pytest fixtures" --json
 
 Run `uv run talkfollow --help` for every option. The command exits with code `1` if every search failed and `2` if the API key is missing.
 
+## Live demo
+
+Try it in the browser at **[talkfollow.pythonmozambique.tech](https://talkfollow.pythonmozambique.tech)**, no key needed.
+
+- It runs on Render's free plan, so the first visit after a quiet spell can take about a minute to wake up.
+- To protect the shared SerpApi budget, each visitor can make 5 new briefings an hour, and the demo makes at most 10 a day. Repeated briefings are served from a 6-hour cache and cost nothing.
+- The [sample briefing](https://talkfollow.pythonmozambique.tech/example) needs no searches at all.
+- Searches and IP addresses are not logged. Visitors are counted by a salted hash of their IP, kept only in memory.
+
+For more than that, run the CLI with your own free key.
+
+### Run the web demo locally
+
+```bash
+uv sync --extra web
+uv run uvicorn talkfollow.web:app --reload
+```
+
+Then open <http://127.0.0.1:8000>. The page uses the same `SERPAPI_API_KEY` as the CLI. Set `DEMO_DAILY_BRIEFINGS` to change the daily cap (10 by default). [`render.yaml`](render.yaml) deploys it to Render as a Blueprint.
+
 ## Project layout
 
 Each module has one job, so the search, the relevance rules and the output format can be read and tested on their own.
@@ -106,6 +126,8 @@ Each module has one job, so the search, the relevance rules and the output forma
 | [`briefing.py`](src/talkfollow/briefing.py) | Applies the relevance rules and builds the `Briefing`. |
 | [`render.py`](src/talkfollow/render.py) | Writes the `Briefing` as Markdown. |
 | [`models.py`](src/talkfollow/models.py) | The plain data classes shared by the modules above. |
+| [`web.py`](src/talkfollow/web.py) | The web demo: form, briefing page and health check (FastAPI). |
+| [`limits.py`](src/talkfollow/limits.py) | The web demo's cache and rate limits. |
 
 ## Tests
 
@@ -115,7 +137,7 @@ The tests replace `serpapi.Client` with a fake client that returns saved respons
 uv run pytest
 ```
 
-There is one test file per module. Together they cover the queries sent to each engine, the 3-search budget (including under parallel searches), parsing, the relevance rules, the Markdown output, error messages that never leak the key, and the CLI end to end.
+There is one test file per module. Together they cover the queries sent to each engine, the 3-search budget (including under parallel searches), parsing, the relevance rules, the Markdown output, error messages that never leak the key, the CLI end to end, and the web demo's cache, limits, input checks and HTML escaping.
 
 ## What was added for the hackathon
 
@@ -127,6 +149,7 @@ TalkFollow is built on these open source libraries. No code was copied from them
 
 - [`serpapi-search-tools`](https://github.com/serpapi/serpapi-search-tools-python) and [`serpapi`](https://github.com/serpapi/serpapi-python) by SerpApi (MIT)
 - [Typer](https://github.com/fastapi/typer) (MIT), [Rich](https://github.com/Textualize/rich) (MIT) and [python-dotenv](https://github.com/theskumar/python-dotenv) (BSD-3-Clause)
+- For the web demo: [FastAPI](https://github.com/fastapi/fastapi) (MIT), [Uvicorn](https://github.com/encode/uvicorn) (BSD-3-Clause) and [markdown-it-py](https://github.com/executablebooks/markdown-it-py) (MIT)
 - [pytest](https://github.com/pytest-dev/pytest) (MIT), for the tests
 
 ## License
