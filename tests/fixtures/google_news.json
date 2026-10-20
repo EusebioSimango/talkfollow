@@ -1,0 +1,36 @@
+{
+  "news_results": [
+    {
+      "title": "Teams report agentic engineering gains",
+      "link": "https://news.example.com/agentic-gains",
+      "source": {"name": "Example News"},
+      "date": "09/02/2026, 07:00 AM, +0000 UTC",
+      "iso_date": "2026-09-02T07:00:00Z"
+    },
+    {
+      "title": "Agentic coverage cluster",
+      "stories": [
+        {
+          "title": "Engineering leaders on agentic tooling",
+          "link": "https://news.example.com/leaders",
+          "source": {"name": "Dev Weekly"},
+          "date": "10/18/2026, 09:00 AM, +0000 UTC"
+        },
+        {
+          "title": "Agentic AI budgets grow",
+          "link": "https://news.example.com/budgets",
+          "source": {"name": "Biz Daily"}
+        },
+        {
+          "title": "Third story in the cluster",
+          "link": "https://news.example.com/third"
+        }
+      ]
+    },
+    {
+      "title": "Local football results",
+      "link": "https://news.example.com/football",
+      "source": {"name": "Sport Example"}
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "search_metadata": {"status": "Success"},
+  "answer_box": {"snippet": "Agentic engineering is building software with AI agents that plan and act."},
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "Schedule - conf.example.org",
+      "link": "https://conf.example.org/schedule/",
+      "snippet": "09:45 - 10:30 · Ramping up agentic engineering in the age of AI-fatigue by Alex ...",
+      "source": "conf.example.org",
+      "date": "5 days ago"
+    },
+    {
+      "position": 2,
+      "title": "Ramping up agentic engineering in the age of AI-fatigue",
+      "link": "https://conf.example.org/talks/42/",
+      "snippet": "Talk by Alex at Example Conf 2026.",
+      "source": "conf.example.org"
+    },
+    {
+      "position": 3,
+      "title": "Duplicate of the schedule",
+      "link": "https://conf.example.org/schedule/"
+    },
+    {
+      "position": 4,
+      "title": "A practical guide to agentic workflows",
+      "link": "https://blog.example.com/agentic-workflows",
+      "snippet": "How teams adopt agents without burning out.",
+      "source": "Example Blog"
+    },
+    {
+      "position": 5,
+      "title": "Alex Smith - Sales Director",
+      "link": "https://social.example.com/alex-smith",
+      "snippet": "Alex Smith leads regional sales and partnerships.",
+      "source": "Social Example"
+    },
+    {"position": 6, "title": "", "link": "https://example.com/no-title"}
+  ],
+  "related_questions": [{"question": "What is agentic engineering?"}]
+}

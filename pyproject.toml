@@ -1,0 +1,38 @@
+[project]
+name = "talkfollow"
+version = "0.1.0"
+description = "Turn a conference talk, speaker or topic into a cited follow-up briefing with SerpApi."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    "python-dotenv>=1.2.4",
+    "rich>=15.0.0",
+    "serpapi-search-tools>=1.0.0",
+    "typer>=0.27.3",
+]
+
+[project.scripts]
+talkfollow = "talkfollow.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.8.15,<0.9.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["talkfollow", "conftest"]
