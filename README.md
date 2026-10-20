@@ -1,5 +1,8 @@
 # TalkFollow
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-talkfollow.onrender.com-2ea44f?style=flat-square&logo=fastapi)](https://talkfollow.onrender.com)
+[![Hackathon](https://img.shields.io/badge/SerpApi-PyCon_ZA_2026-blue?style=flat-square)](https://serpapi.com/pyconzahackathon)
+
 Turn a conference talk into a short follow-up briefing, with a link for every item.
 
 You walk out of a talk at PyCon ZA wanting to dig deeper. The usual follow-up is three browser tabs: Google for the talk page and background reading, Google News for what changed recently, and YouTube for other talks on the subject. TalkFollow runs those three searches in one command and gives you a Markdown briefing you can keep, share or paste into your notes.
@@ -94,11 +97,11 @@ Run `uv run talkfollow --help` for every option. The command exits with code `1`
 
 ## Live demo
 
-Try it in the browser at **[talkfollow.pythonmozambique.tech](https://talkfollow.pythonmozambique.tech)**, no key needed.
+Try it in the browser at **[talkfollow.onrender.com](https://talkfollow.onrender.com)**, no key needed.
 
 - It runs on Render's free plan, so the first visit after a quiet spell can take about a minute to wake up.
 - To protect the shared SerpApi budget, each visitor can make 5 new briefings an hour, and the demo makes at most 10 a day. Repeated briefings are served from a 6-hour cache and cost nothing.
-- The [sample briefing](https://talkfollow.pythonmozambique.tech/example) needs no searches at all.
+- The [sample briefing](https://talkfollow.onrender.com/example) needs no searches at all.
 - Searches and IP addresses are not logged. Visitors are counted by a salted hash of their IP, kept only in memory.
 
 For more than that, run the CLI with your own free key.
