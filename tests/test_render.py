@@ -26,6 +26,15 @@ def test_header_and_summary(fake_client, talk_query):
     )
 
 
+def test_summary_leaves_out_empty_categories(fake_client, talk_query):
+    fake_client.responses["youtube"] = {"video_results": []}
+    text = render(fake_client, talk_query)
+
+    assert (
+        "> 6 sources from 3 SerpApi searches: 2 about this talk, 1 related reading, 3 news."
+    ) in text
+
+
 def test_sections_are_in_reading_order(fake_client, talk_query):
     text = render(fake_client, talk_query)
     headings = [line for line in text.splitlines() if line.startswith("## ")]

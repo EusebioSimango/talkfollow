@@ -27,7 +27,7 @@ A briefing with these sections, each built only from live search results:
 
 When you give a short topic instead of a talk title (for example `"Python packaging"`), the first two web sections become a single **Background reading** section.
 
-TalkFollow never writes text that did not come back from a search. If a search fails or finds nothing on topic, the section says so in one line instead of filling the gap.
+TalkFollow never writes text that did not come back from a search. If a search fails or finds nothing on topic, the section says so in one line instead of filling the gap. See [`examples/sample-briefing.md`](examples/sample-briefing.md) for a real briefing, generated with `talkfollow "free-threaded Python"`.
 
 ### How it keeps results on topic
 

@@ -11,6 +11,9 @@ from talkfollow.models import Source
 # Google News groups coverage of one story into a cluster; keep only its lead articles.
 MAX_STORIES_PER_CLUSTER = 2
 
+# Absolute dates as Google shows them next to web results, e.g. "18 Sept 2024", "Sep 18, 2024".
+WEB_DATE_FORMATS = ("%d %b %Y", "%b %d, %Y", "%d %B %Y", "%B %d, %Y")
+
 
 def web_sources(payload: Mapping[str, Any]) -> list[Source]:
     return [
@@ -19,7 +22,7 @@ def web_sources(payload: Mapping[str, Any]) -> list[Source]:
             link=_link(item),
             snippet=clean_text(item.get("snippet")),
             publisher=clean_text(item.get("source")),
-            published=clean_text(item.get("date")),
+            published=format_web_date(item.get("date")),
         )
         for item in _items(payload, "organic_results")
     ]
@@ -78,12 +81,28 @@ def format_news_date(item: Mapping[str, Any]) -> str:
         if isinstance(value, str) and value:
             parsed = parse(value)
             if parsed:
-                return f"{parsed.day} {parsed:%b %Y}"
+                return _display_date(parsed)
     return clean_text(item.get("date"))
+
+
+def format_web_date(value: Any) -> str:
+    """Show absolute dates as "18 Sep 2024"; keep relative ones like "5 days ago" as they are."""
+    text = clean_text(value)
+    normalised = text.replace("Sept ", "Sep ")
+    for date_format in WEB_DATE_FORMATS:
+        try:
+            return _display_date(datetime.strptime(normalised, date_format))
+        except ValueError:
+            continue
+    return text
 
 
 def clean_text(value: Any) -> str:
     return " ".join(str(value).split()) if value else ""
+
+
+def _display_date(value: datetime) -> str:
+    return f"{value.day} {value:%b %Y}"
 
 
 def _parse_iso(value: str) -> datetime | None:

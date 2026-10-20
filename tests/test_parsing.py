@@ -10,6 +10,14 @@ def test_web_sources_read_organic_results():
     assert sources[0].domain == "conf.example.org"
 
 
+def test_web_dates_match_the_news_date_format():
+    assert parsing.format_web_date("18 Sept 2024") == "18 Sep 2024"
+    assert parsing.format_web_date("Sep 8, 2024") == "8 Sep 2024"
+    assert parsing.format_web_date("24 August 2026") == "24 Aug 2026"
+    assert parsing.format_web_date("5 days ago") == "5 days ago"
+    assert parsing.format_web_date(None) == ""
+
+
 def test_news_sources_expand_clusters_and_format_dates():
     sources = parsing.news_sources(load_fixture("google_news"))
 

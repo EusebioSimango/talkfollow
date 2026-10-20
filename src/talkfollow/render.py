@@ -38,20 +38,20 @@ def _header(briefing: Briefing) -> str:
 
 
 def _summary(briefing: Briefing) -> str:
-    counts: list[str] = []
-    if briefing.search_for(Section.WEB):
-        if briefing.is_talk:
-            counts.append(f"{len(briefing.about_talk)} about this talk")
-            counts.append(f"{len(briefing.related_reading)} related reading")
-        else:
-            counts.append(f"{len(briefing.related_reading)} background reading")
-    if briefing.search_for(Section.NEWS):
-        counts.append(f"{len(briefing.news)} news")
-    if briefing.search_for(Section.VIDEOS):
-        counts.append(_plural(len(briefing.videos), "video"))
+    """One line such as "7 sources from 3 SerpApi searches: 2 about this talk, 5 news."."""
+    reading = "related reading" if briefing.is_talk else "background reading"
+    counts = [
+        f"{len(briefing.about_talk)} about this talk" if briefing.about_talk else "",
+        f"{len(briefing.related_reading)} {reading}" if briefing.related_reading else "",
+        f"{len(briefing.news)} news" if briefing.news else "",
+        _plural(len(briefing.videos), "video") if briefing.videos else "",
+    ]
     searches = _plural(len(briefing.searches), "SerpApi search", "SerpApi searches")
     sources = _plural(briefing.source_count, "source")
-    return f"{sources} from {searches}: {', '.join(counts)}."
+    breakdown = ", ".join(count for count in counts if count)
+    return (
+        f"{sources} from {searches}: {breakdown}." if breakdown else f"{sources} from {searches}."
+    )
 
 
 def _answer(briefing: Briefing) -> str:
